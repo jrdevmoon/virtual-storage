@@ -1,10 +1,11 @@
-const root = __dirname
-const config = require (`${root}/config.json`)
+const VS = require (`${__dirname}/virtualstorage`)
+const vs = new VS
 
-const VS = require (`${root}${config.VS}`)
+vs.map (
+{
+  tag : "C:",
+  path : "./test"
+}
+)
 
-const storage = new VS
-storage.map ({tag: "C:", path: root, monitor: true})
-
-
-console.dir (storage, {depth: 20})
+console.dir (vs, {depth: 10})
