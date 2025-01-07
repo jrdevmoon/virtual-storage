@@ -4,13 +4,21 @@ class FOLDER
   DIR
   ROOT
   PATH
-  
-  constructor (path, map, getContent)
-  {
-    this.map = map
-    this.getContent = getContent
+  SIZE
 
-    this.map (path)
+  map
+  getContent
+  setFolders
+  setFiles
+  
+  constructor (path, map, getContent, setFolders, setFiles)
+  {
+    if (map) this.map = map
+    if (getContent) this.getContent = getContent
+    if (setFolders) this.setFolders = setFolders
+    if (setFiles) this.setFiles = setFiles
+
+    if (path) this.map (path)
   }
 }
 module.exports = FOLDER

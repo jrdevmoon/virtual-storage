@@ -1,5 +1,12 @@
 class DRIVE
 {
+  TAG
+  NAME
+  DIR
+  ROOT
+  PATH
+  SIZE
+
   constructor (prop)
   {
     if (prop)
@@ -22,6 +29,7 @@ class DRIVE
         this.DIR = pth.parse (path).dir
         this.ROOT = pth.parse (path).root
         this.PATH = path
+        this.SIZE = fs.lstatSync (path).size
 
         this.getContent (this.PATH, fs, pth)
       }
@@ -32,23 +40,42 @@ class DRIVE
   {
     if (fs.readdirSync (path))
     {
-      const FolderMod = require (`${__dirname}/folder.js`)
-
       const contentBases = fs.readdirSync (path)
       const contentPaths = []
-
+      
       for (let x in contentBases)
       {
         contentPaths.push (`${path}/${contentBases[x]}`)
-
+  
         if (fs.lstatSync (contentPaths[x]).isDirectory ())
         {
-            if (!(this.FOLDERS)) this.FOLDERS = []
-
-            this.FOLDERS.push (new FolderMod (contentPaths[x], this.map, this.getContent))
+          this.setFolders (contentPaths[x])   
+        }
+        if (fs.lstatSync (contentPaths[x]).isFile ())
+        {
+          this.setFiles (contentPaths[x])
         }
       }
     }
+  }
+
+  setFiles (contentPath)
+  {
+    if (!(this.FILES)) this.FILES = []
+    
+    const FolderMod = require (`${__dirname}/folder.js`)
+    const FileMod = require (`${__dirname}/file.js`)
+
+    this.FILES.push (new FileMod (contentPath))
+  }
+
+  setFolders (contentPath)
+  {
+    if (!(this.FOLDERS)) this.FOLDERS = []
+  
+    const FolderMod = require (`${__dirname}/folder.js`)
+
+    this.FOLDERS.push (new FolderMod (contentPath, this.map, this.getContent, this.setFolders, this.setFiles))
   }
 }
 module.exports = DRIVE
