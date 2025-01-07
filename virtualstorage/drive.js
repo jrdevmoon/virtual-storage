@@ -1,3 +1,6 @@
+const fsMod = require ('fs')
+const pathMod = require ('path')
+
 class DRIVE
 {
   TAG
@@ -13,13 +16,23 @@ class DRIVE
     {
       if (prop.tag) this.TAG = prop.tag
       if (prop.path) this.map (prop.path)
+
+      //this.monitor ()
     }
+  }
+
+  monitor ()
+  {
+    fsMod.watch (this.PATH, (eventType, affected)=>
+    {
+      console.log ({eventType, affected})
+    })
   }
 
   map (path)
   {
-    const fs = require ('fs')
-    const pth = require ('path')
+    const fs = fsMod
+    const pth = pathMod
 
     if (fs.existsSync (path))
     {

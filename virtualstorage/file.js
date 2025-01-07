@@ -7,7 +7,18 @@ class FILE
   {
     if (path) this.map (path)
 
-    if (this.EXT == ".json") this.import (this.PATH)
+    this.import ()
+
+    //this.monitor ()
+  }
+
+  monitor ()
+  {
+    fs.watch (this.PATH, (eventType, affected)=>
+    {
+      console.log ({eventType, affected})
+       
+    })
   }
 
   map (path)
@@ -21,9 +32,22 @@ class FILE
     this.SIZE = fs.lstatSync (path).size
   }
 
-  import (path)
+  import ()
   {
-    if (!(this.CONTENT)) this.CONTENT = require (path)
+    if (this.EXT == ".json") 
+    {
+      this.CONTENT = this.content 
+    }
+
+    if (this.EXT == ".js") 
+    {
+      this.CONTENT = this.content
+    }
+  }
+
+  content ()
+  {
+    return require (`"${this.PATH}"`)
   }
 }
 module.exports = FILE

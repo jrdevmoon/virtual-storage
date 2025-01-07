@@ -4,15 +4,15 @@ const vs = new VS
 vs.map (
 {
   tag : "C:",
-  path : `${__dirname}/virtualstorage`
+  path : `${__dirname}/test`
 }
 )
-
+/*
 vs.map (
   {
     tag : "D:",
-    path : `${__dirname}/test`
+    path : `${__dirname}`
   }
   )
-
-console.dir (vs, {depth: 10})
+*/
+console.dir (vs, {depth: 7})
