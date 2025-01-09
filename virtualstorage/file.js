@@ -8,17 +8,6 @@ class FILE
     if (path) this.map (path)
 
     this.import ()
-
-    //this.monitor ()
-  }
-
-  monitor ()
-  {
-    fs.watch (this.PATH, (eventType, affected)=>
-    {
-      console.log ({eventType, affected})
-       
-    })
   }
 
   map (path)
@@ -36,16 +25,16 @@ class FILE
   {
     if (this.EXT == ".json") 
     {
-      this.CONTENT = this.content 
+      this.CONTENT = this.getContent 
     }
 
     if (this.EXT == ".js") 
     {
-      this.CONTENT = this.content
+      this.CONTENT = this.getContent
     }
   }
 
-  content ()
+  getContent ()
   {
     return require (`"${this.PATH}"`)
   }

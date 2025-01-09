@@ -16,17 +16,7 @@ class DRIVE
     {
       if (prop.tag) this.TAG = prop.tag
       if (prop.path) this.map (prop.path)
-
-      //this.monitor ()
     }
-  }
-
-  monitor ()
-  {
-    fsMod.watch (this.PATH, (eventType, affected)=>
-    {
-      console.log ({eventType, affected})
-    })
   }
 
   map (path)
@@ -43,6 +33,7 @@ class DRIVE
         this.ROOT = pth.parse (path).root
         this.PATH = path
         this.SIZE = fs.lstatSync (path).size
+        if (!(this.COUNT)) this.COUNT = {}
 
         this.getContent (this.PATH, fs, pth)
       }
@@ -55,6 +46,7 @@ class DRIVE
     {
       const contentBases = fs.readdirSync (path)
       const contentPaths = []
+
       
       for (let x in contentBases)
       {
@@ -62,10 +54,14 @@ class DRIVE
   
         if (fs.lstatSync (contentPaths[x]).isDirectory ())
         {
-          this.setFolders (contentPaths[x])   
+          if (!(this.COUNT.FOLDERS)) this.COUNT.FOLDERS = 0
+          this.COUNT.FOLDERS ++
+          this.setFolders (contentPaths[x]) 
         }
         if (fs.lstatSync (contentPaths[x]).isFile ())
         {
+          if (!(this.COUNT.FILES)) this.COUNT.FILES = 0
+          this.COUNT.FILES ++
           this.setFiles (contentPaths[x])
         }
       }

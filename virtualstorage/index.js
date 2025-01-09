@@ -12,11 +12,26 @@ class STORAGE
 
       if (temp.path)
       {
+        if (!(this.DIR_COUNT)) this.DIR_COUNT = 0
         if (!(this.DIRECTORY)) this.DIRECTORY = []
-
+            
         this.DIRECTORY.push (new this.#driveMod (temp))
+        this.DIR_COUNT = this.DIRECTORY.length
       }
     }
+  }
+  query (prop)
+  {
+    if (prop)
+    {
+      const temp = {}
+      if (prop.drive) this.setDrive (prop.drive)
+    }
+  }
+ 
+  setDrive (prop)
+  {
+    
   }
 }
 module.exports = STORAGE
