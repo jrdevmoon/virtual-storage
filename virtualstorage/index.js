@@ -22,16 +22,38 @@ class STORAGE
   }
   query (prop)
   {
+    if (!(this.QUERY_COUNT) )this.QUERY_COUNT = 0
+    if (!(this.RESULT)) this.RESULT = []
+
+    this.RESULT[this.QUERY_COUNT] = 
+    this.QUERY_COUNT ++
+
     if (prop)
     {
       const temp = {}
-      if (prop.drive) this.setDrive (prop.drive)
+      
+      if (prop.drive) this.queryDrive (prop.drive)
+
+      this.RESULT = temp
+
+      return this.RESULT
     }
   }
- 
-  setDrive (prop)
+
+  queryDrive (drive)
   {
-    
+    let innerKeys = []
+    let Y = []
+    for (let x in this.DIRECTORY)
+    {
+      innerKeys.push (Object.keys(this.DIRECTORY[x]))
+
+      for (let y in drive)
+      {
+        let Y = y.toUpperCase ()
+      }
+    }
+    console.log (innerKeys)
   }
 }
 module.exports = STORAGE

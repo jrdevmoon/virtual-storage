@@ -7,20 +7,22 @@ vs.map (
   path : `${__dirname}/test`
 })
 
-/*
+
 vs.map (
 {
   tag : "D:",
   path : `${__dirname}/virtualstorage`
 })
-*/
+
 
 const core = vs.query (
 {
   drive :
   {
-    tag : "C:"
+    tag : "C:",
+    name : "virtualstorage",
+    test : "messy"
   }
 })
 
-//console.dir (vs, {depth: 7})
+console.dir (core, {depth: 7})
